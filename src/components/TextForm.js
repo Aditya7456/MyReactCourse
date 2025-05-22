@@ -5,12 +5,12 @@ export default function TextForm(props) {
   // here we are using the toUpperCase() method to convert the text to uppercase.
   const handleUpClick = () => {
     // console.log("Uppercase was clicked" + text);
-    if(text.length === 0) {
+    if (text.length === 0) {
       props.showAlert("nothing to convert!", "warning");
     } else {
       let newText = text.toUpperCase();
       setText(newText);
-      props.showAlert("converted to uppercase!", "success");  
+      props.showAlert("converted to uppercase!", "success");
     }
     // console.log(newText);
     //props.showAlert("converted to uppercase!", "success");
@@ -20,7 +20,7 @@ export default function TextForm(props) {
   // to change the text to lowercase
   // here we are using the toLowerCase() method to convert the text to lowercase.
   const handleDownClick = () => {
-    if(text.length === 0) {
+    if (text.length === 0) {
       props.showAlert("nothing to convert!", "warning");
     } else {
       let newText = text.toLowerCase();
@@ -71,7 +71,7 @@ export default function TextForm(props) {
   return (
     <>
       <div className="container">
-        <h1  style={{color: props.mode === 'light'?'black':'white'}}>{props.heading}</h1>
+        <h1 style={{ color: props.mode === 'light' ? 'black' : 'white' }}>{props.heading}</h1>
         <div className="mb-3">
           <textarea
             className="form-control"
@@ -79,20 +79,21 @@ export default function TextForm(props) {
             onChange={handleOnChange}
             id="myBox"
             rows="10"
-            style={{backgroundColor: props.mode === 'light'?'white':'black', color: props.mode === 'light' ? 'black' : 'white' }}
+            style={{ backgroundColor: props.mode === 'light' ? 'white' : 'black', color: props.mode === 'light' ? 'black' : 'white' }}
           ></textarea>
         </div>
-        <button className="btn btn-primary" onClick={handleUpClick}>
+        <button disabled={text.length === 0} className="btn btn-primary mx-1 my-1" onClick={handleUpClick}>
           Convert to Uppercase
         </button>
-        <button className="btn btn-primary mx-3" onClick={handleDownClick}>
+        <button disabled={text.length === 0} className="btn btn-primary mx-1 my-1" onClick={handleDownClick}>
           Convert to LowerCase
         </button>
-        <button className="btn btn-primary" onClick={handleClearText}>
+        <button disabled={text.length === 0} className="btn btn-primary mx-1 my-1" onClick={handleClearText}>
           Clear Text
         </button>
         <button
-          className="btn btn-primary mx-3"
+          disabled={text.length === 0} 
+          className="btn btn-primary mx-1 my-1"
           onClick={handleCopyClipboard}
           style={{
             backgroundColor: copied ? "green" : "#007bff",
@@ -104,17 +105,17 @@ export default function TextForm(props) {
             transition: "background-color 0.3s",
           }}
         >
-          {copied ? "Copied✅" : "Copy"}
+          {copied ? "Copied✅" : "Copy Text"}
         </button>
       </div>
       <div className="container my-3">
-        <h1 style={{color:props.mode==='light'?'black':'white'}}>Your text summary.</h1>
-        <p style={{color:props.mode==='light'?'black':'white'}}>
-          {text.split(" ").length} words and {text.length} character
+        <h1 style={{ color: props.mode === 'light' ? 'black' : 'white' }}>Your text summary.</h1>
+        <p style={{ color: props.mode === 'light' ? 'black' : 'white' }}>
+          {text.split(/\s+/).filter((ele) => { return ele.length !== 0 }).length} words and {text.length} character
         </p>
-        <p style={{color:props.mode==='light'?'black':'white'}}>{0.008 * text.split(" ").length} minutes needed to read this.</p>
-        <h2 style={{color:props.mode==='light'?'black':'white'}}>Preview</h2>
-        <p style={{color:props.mode==='light'?'black':'white'}}>{text}</p>
+        <p style={{ color: props.mode === 'light' ? 'black' : 'white' }}>{0.008 * text.split(" ").filter((ele) => { return ele.length !== 0 }).length} minutes needed to read this.</p>
+        <h2 style={{ color: props.mode === 'light' ? 'black' : 'white' }}>Preview</h2>
+        <p style={{ color: props.mode === 'light' ? 'black' : 'white' }}>{text.length===0?'nothing to preview':text}</p>
       </div>
     </>
   );
